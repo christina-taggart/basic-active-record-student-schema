@@ -29,7 +29,3 @@ class Student < ActiveRecord::Base
     end
   end
 end
-
-# student = Student.all[0]
-# p student.name
-# p student.age
