@@ -80,7 +80,10 @@ describe Student, "validations" do
     another_student = Student.create!(
       :birthday => @student.birthday,
       :email => @student.email,
-      :phone => @student.phone
+      :phone => @student.phone,
+      :first_name => 'Stuart',
+      :last_name => 'McSuartson',
+      :gender => 'm'
     )
     @student.should_not be_valid
   end
