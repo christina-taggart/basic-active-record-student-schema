@@ -1,16 +1,21 @@
 require_relative '../../db/config'
-require 'date'
+
 class Student < ActiveRecord::Base
+  I18n.enforce_available_locales = false
+  validates :email, :format => {:with => /[\d\w]+@[\d\w]+\.\w{2,}/}, :uniqueness => true
+  validates :age, :numericality => {:greater_than_or_equal_to => 5}
+  validate :phone_digit_length
 
   def name
-    "#{first_name} #{last_name}"
+    [first_name, last_name].join(" ")
   end
 
   def age
     now = Time.now.utc.to_date
     now.year - self.birthday.year - ((now.month > self.birthday.month || (now.month == self.birthday.month && now.day >= self.birthday.day)) ? 0 : 1)
   end
-end
 
-student = Student.new(first_name: 'Bob', last_name: 'Saget', birthday: Date.new(1984,3,22))
-p student.age
+  def phone_digit_length
+    errors.add(:phone, "Phone numbers must be 10 or more digits long") if phone.scan(/\d/).length < 10
+  end
+end
