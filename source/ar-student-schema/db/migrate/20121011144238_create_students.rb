@@ -5,12 +5,13 @@ require_relative '../config'
 class CreateStudents < ActiveRecord::Migration
   def change
     create_table :students do |t|
-      t.string :first_name, :null => false
-      t.string :last_name, :null => false
-      t.string :gender, :null => false
-      t.date :birthday, :null => false
-      t.string :email, :null => false
-      t.string :phone, :null => false
+      t.string :first_name
+      t.string :last_name
+      t.string :gender
+      t.date :birthday
+      t.string :email
+      t.string :phone
+      t.timestamps
     end
   end
 end
