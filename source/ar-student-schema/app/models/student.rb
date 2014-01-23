@@ -10,10 +10,20 @@ class AgeValidator < ActiveModel::Validator
   end
 end
 
+class PhoneValidator < ActiveModel::Validator
+  def validate(student)
+    phone_digits = student.phone.gsub(/\D/, "")
+    unless phone_digits =~ /\d{10,}/
+      student.errors[:base] << "Phone number must contain at least 10 digits"
+    end
+  end
+end
+
 
 class Student < ActiveRecord::Base
   validates :email, :format => { :with => /.+@.+\..{2,}/ }
   validates :email, :uniqueness => true
+  validates_with PhoneValidator
   validates_with AgeValidator
 
   def name
