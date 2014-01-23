@@ -1,8 +1,8 @@
 require_relative '../../db/config'
 
 class Student < ActiveRecord::Base
-# implement your Student model here
-
+  validates :email, :format => { :with => /[\d\w]+@[\d\w]+\.\w{2,}/ }, :uniqueness => true
+  validates_numericality_of :age, {:greater_than_or_equal_to => 5}
   def name
     self.first_name << " " << self.last_name
   end
