@@ -11,8 +11,7 @@ class Student < ActiveRecord::Base
   end
 
   def age
-    now = Time.now.utc.to_date
-    now.year - self.birthday.year - ((now.month > self.birthday.month || (now.month == self.birthday.month && now.day >= self.birthday.day)) ? 0 : 1)
+    ((Date.today - birthday)/365.2422).to_i
   end
 
   def phone_digit_length
